@@ -65,8 +65,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.11.0")
 // Navigation Compose
     implementation("androidx.navigation:navigation-compose:2.10.2")
-// Material Icons Extended (legacy library)
-    implementation("androidx.compose.material:material-icons-extended:1.12.1")
+// Material Icons Extended
+    implementation("androidx.compose.material:material-icons-extended")
 // Hilt Navigation Compose
     implementation("androidx.hilt:hilt-navigation-compose:1.4.0")
 
