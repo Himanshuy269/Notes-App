@@ -7,21 +7,18 @@ plugins {
 //    id("com.google.dagger.hilt.android")
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.kotlin.android)
 
 }
 
 android {
     namespace = "com.example.notesapp"
-    compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
-    }
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.notesapp"
         minSdk = 29
-        targetSdk = 36
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -30,9 +27,11 @@ android {
 
     buildTypes {
         release {
-            optimization {
-                enable = false
-            }
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -41,6 +40,9 @@ android {
     }
     buildFeatures {
         compose = true
+    }
+    kotlinOptions {
+        jvmTarget = "11"
     }
 }
 
@@ -54,6 +56,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.core.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
@@ -61,41 +64,26 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
-    //compose
+
     // Lifecycle ViewModel Compose
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.11.0")
-// Navigation Compose
-    implementation("androidx.navigation:navigation-compose:2.10.2")
-// Material Icons Extended
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6")
+    // Navigation Compose
+    implementation("androidx.navigation:navigation-compose:2.8.3")
+    // Material Icons Extended
     implementation("androidx.compose.material:material-icons-extended")
-// Hilt Navigation Compose
-    implementation("androidx.hilt:hilt-navigation-compose:1.4.0")
-
-    implementation("com.google.dagger:hilt-android:2.60.1")
-    ksp("com.google.dagger:hilt-compiler:2.60.1")
-
-    // Kotlin Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.11.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0")
+    // Hilt Navigation Compose
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     // Dagger Hilt
-    implementation("com.google.dagger:hilt-android:2.60.1")
-    ksp("com.google.dagger:hilt-compiler:2.60.1")
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    ksp("com.google.dagger:hilt-compiler:2.51.1")
 
-// Hilt Navigation Compose
-    implementation("androidx.hilt:hilt-navigation-compose:1.4.0")
-    // Room
-    implementation("androidx.room:room-runtime:2.8.5")
-    implementation("androidx.room:room-ktx:2.8.5")
-    ksp("androidx.room:room-compiler:2.8.5")
+    // Kotlin Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
 
-        // Dagger Hilt
-        implementation("com.google.dagger:hilt-android:2.60.1")
-        ksp("com.google.dagger:hilt-compiler:2.60.1")
-        implementation("androidx.hilt:hilt-navigation-compose:1.4.0")
-
-        // Room Database
-        implementation("androidx.room:room-runtime:2.8.5")
-        implementation("androidx.room:room-ktx:2.8.5")
-        ksp("androidx.room:room-compiler:2.8.5")
-    }
+    // Room Database
+    implementation("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+    ksp("androidx.room:room-compiler:2.6.1")
+}
